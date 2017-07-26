@@ -5,18 +5,18 @@ using Newtonsoft.Json.Linq;
 namespace TelegramFlitter
 {
 
+    enum CardType
+    {
+        Problem,
+        Mane,
+        Troublemaker,
+        Resource,
+        Event,
+        Friend
+    }
+
     struct Card
     {
-        enum CardType
-        {
-            Problem,
-            Mane,
-            Troublemaker,
-            Resource,
-            Event,
-            Friend
-        }
-
         public string Title { get; }
         public string SubTitle { get; }
         public string Set { get; }
