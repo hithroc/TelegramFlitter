@@ -50,17 +50,17 @@ namespace TelegramFlitter
                 id = "cspf8";
             if(Set == "AD" && Number == "d1")
                 id = "add1";
-            if(Set == "AD" && Number == "f10")
-                id = "adf10";
-            if(Set == "AD" && Number == "f8")
-                id = "adf8";
-            if(Set == "AD" && Number == "f6")
-                id = "adf6";
-            if(Set == "AD" && Number == "f12")
-                id = "adf12";
-            if(Set == "AD" && Number == "f4")
-                id = "adf4";
-            ImageUrl = $"http://ponyhead.com/img/{id}.jpg";
+            if(Set == "AD" && Number == "pf10")
+                id = "adpf10";
+            if(Set == "AD" && Number == "pf8")
+                id = "adpf8";
+            if(Set == "AD" && Number == "pf6")
+                id = "adpf6";
+            if(Set == "AD" && Number == "pf12")
+                id = "adpf12";
+            if(Set == "AD" && Number == "pf4")
+                id = "adpf4";
+            ImageUrl = $"http://ponyhead.com/img/cards/{id}.jpg";
         }
 
     }
