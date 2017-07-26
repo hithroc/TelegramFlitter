@@ -8,7 +8,6 @@ namespace TelegramFlitter
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
             Card[] cards;
             var def = new { token = "", dbpath = "" };
             var settings = JsonConvert.DeserializeAnonymousType(File.ReadAllText("settings.json"), def);
@@ -16,7 +15,7 @@ namespace TelegramFlitter
             {
                 JsonSerializer serializer = new JsonSerializer();
                 cards = (Card[])serializer.Deserialize(file, typeof(Card[]));
-                Console.WriteLine(cards.Length);
+                Console.WriteLine($"{cards.Length} cards loaded!");
             }
             CardSearchBot bot = new CardSearchBot(settings.token, cards);
             bot.Run();
