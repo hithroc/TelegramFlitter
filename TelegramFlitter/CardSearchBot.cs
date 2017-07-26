@@ -15,17 +15,10 @@ namespace TelegramFlitter
         private Card[] cards;
         private async void BotOnInlineQuery(object sender, InlineQueryEventArgs args)
         {
-            //List<InlineQueryResult> results = new List<InlineQueryResult>();
-            //int found = 0;
             Func<Card,InlineQueryResult> consturctResult = card =>
                 {
-                    int width = 344;
-                    int height = 480;
-                    if(card.Type == CardType.Problem)
-                    {
-                        width = 480;
-                        height = 344;
-                    }
+                    int width  = card.Type != CardType.Problem ? 344 : 480;
+                    int height = card.Type != CardType.Problem ? 480 : 344;
                     return new InlineQueryResultPhoto
                     { ThumbUrl = card.ImageUrl,
                       Url = card.ImageUrl,
