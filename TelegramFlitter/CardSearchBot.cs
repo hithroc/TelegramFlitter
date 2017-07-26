@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Args;
@@ -13,14 +15,10 @@ namespace TelegramFlitter
         private Card[] cards;
         private async void BotOnInlineQuery(object sender, InlineQueryEventArgs args)
         {
-            List<InlineQueryResult> results = new List<InlineQueryResult>();
-            int found = 0;
-            foreach(var card in cards)
-            {
-                if(card.FullName.ToLower().Contains(args.InlineQuery.Query.ToLower()))
+            //List<InlineQueryResult> results = new List<InlineQueryResult>();
+            //int found = 0;
+            Func<Card,InlineQueryResult> consturctResult = card =>
                 {
-                    found++;
-
                     int width = 344;
                     int height = 480;
                     if(card.Type == CardType.Problem)
@@ -28,21 +26,17 @@ namespace TelegramFlitter
                         width = 480;
                         height = 344;
                     }
-                    results.Add(new InlineQueryResultPhoto
-                            { ThumbUrl = card.ImageUrl
-                            , Url = card.ImageUrl
-                            , Title = card.FullName
-                            , Id = card.Set + card.Number
-                            , ThumbWidth = width
-                            , ThumbHeight = height
-                            , Width = width
-                            , Height = height
-                            });
-                }
-                if(found >= 30)
-                    break;
-            }
-
+                    return new InlineQueryResultPhoto
+                    { ThumbUrl = card.ImageUrl,
+                      Url = card.ImageUrl,
+                      Id = card.Set + card.Number,
+                      ThumbWidth = width,
+                      ThumbHeight = height,
+                      Width = width,
+                      Height = height
+                    };
+                };
+            var results = cards.AsParallel().Where(card => card.FullName.ToLower().Contains(args.InlineQuery.Query.ToLower())).Take(30).Select(consturctResult);
 
             await bot.AnswerInlineQueryAsync(args.InlineQuery.Id, results.ToArray());
         }
